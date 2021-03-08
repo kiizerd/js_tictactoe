@@ -1,11 +1,59 @@
 html {
-
+    font-family: 'Quicksand', sans-serif;
 }
 
 body {
-
+    background-color: rgb(82, 99, 116);
 }
 
-div {
+#header {
+    width: auto;
+}
 
+#game-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    color: snow;
+}
+
+#stats-container {
+    margin: 2vw;
+    padding: 1vw;
+    max-width: 800px;
+    border-radius: 1em;
+    background-color: rgb(100, 126, 148);
+    box-shadow:         0 0 5px 6px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:    0 0 5px 6px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 5px 6px rgba(0, 0, 0, 0.2);
+}
+
+#stats-list {
+    display: flex;
+    padding: 0;
+    margin: 0 0 0 0;
+}
+
+#stats-list li {
+    margin: 0 1rem 0 1rem;
+}
+
+#game-container {
+    margin: 2vw 5vw 5vw 5vw;
+    max-width: 800px;
+}
+
+#game-board {
+    margin: 2vw;
+    padding: 1vw;
+    min-width: 350px;
+    min-height: 350px;
+    border-radius: 9px;
+    background-color: rgb(100, 126, 148);
+    box-shadow:         0 0 5px 6px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:    0 0 5px 6px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 5px 6px rgba(0, 0, 0, 0.2);
 }
