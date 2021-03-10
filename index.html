@@ -19,18 +19,31 @@
 <body>
   
   <div class='container-fluid' id="game-wrapper">
-    <div class="container-xs" id="stats-container" hidden>
+    <div class="container-xs" id="stats-container" >
       <ul id="stats-list" style="list-style: none;">
-        <li id="player-name">Player:</li>
-        <li id="games-won">Won:</li>
-        <li id="games-lost">Lost:</li>
-        <li id="games-drawn">Drawn:</li>
+        <li id="player-name"hidden></li>
+        <li id="games-X">X<p>0</p></li>
+        <li id="games-O">O<p>0</p></li>
+        <li id="games-D">D<p>0</p></li>
       </ul>
     </div>
     <div class="container-xs" id="game-container">
       <div class="text-center" id="game-board"></div>
+      <div class="text-right" id="btn-container">
+        <button class="btn btn-dark" onclick="Board.reset()">Reset</button>
+      </div>
     </div>
   </div>
+
+  <div class="modal" tabindex="-1" id="game-over-modal">
+    <div class="modal-dialog">
+      <div class="modal-content" id="modal-content">
+        <span class="close" id="close-modal-btn">&times;</span>
+        <div class="modal-body" id="modal-body"></div>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
