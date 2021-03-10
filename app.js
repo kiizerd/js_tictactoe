@@ -1,38 +1,65 @@
+const Display = (() => {
+
+  function getCellDiv(cellObj) {
+    const div = document.createElement('div');
+    document.getElementById('game-board').append(div);
+    div.classList.add('cell', 'text-center');
+    return div;
+  };
+
+  function updateScore(winner) {
+    const scores = Array.from(document.querySelectorAll('li'))
+
+    let index = !winner ? 3 : winner === 'X' ? 1 : 2;
+    let score = scores[index].children[0]
+
+    score.textContent = parseInt(score.textContent) + 1
+
+  };
+
+  function getModal() {
+    const modal = document.getElementById('game-over-modal');
+    modal.style.display = 'block'
+    
+    const closeBtn = document.getElementById('close-modal-btn');
+    closeBtn.onclick = () => modal.style.display = 'none';
+
+    window.onclick = e => { if (e.target==modal) modal.style.display ='none' };
+    
+    return modal;
+  };
+
+  function gameOver(shape) {
+    const modal = getModal();
+    const body = document.getElementById('modal-body')
+
+    body.textContent = !shape ? 'No Winner' : (shape + ' wins!!');
+    
+    return;
+  };
+  
+  return { getCellDiv, gameOver, updateScore }
+})();
+
 const Game = (() => {
 
-  let players = [{ shape: 'X' }, { shape: 'O' }]
-  let current = players[0]
+  let players = [{ shape: 'X' }, { shape: 'O' }];
+  let current = players[0];
 
-  getMove = () => {
-    current = current === players[0] ? players[1] : players[0]
+  let scores = { 'X': 0, 'O': 0, 'D': 0 };
+
+  function changeScore(winner) {
+    Display.updateScore(winner);
+    if (!winner) scores['D']++
+    else scores[winner]++
+  };
+
+  function getMove() {
+    current = current.shape === players[0].shape ? players[1] : players[0]
     return current.shape
   };
 
-  gameWin = winner => {
-    console.log('game won');
-    return;
-  }
-
-  gameDraw = () => {
-    console.log('game draw');
-    return;
-  }
-
-  gameOver = (cell) => {
-    if (!cell) {
-      gameDraw();
-      return;
-    } else if (cell.state === 'X') {
-      gameWin('X');
-      return;
-    } else if (cell.state === 'O') {
-      gameWin('O');
-      return;
-    };
-  };
-
-  let count = 0
-  const lookForLine = (cells, cell) => {
+  function lookForLine(cells, cell) {
     let shape = cell.state
 
     if ((cells[0].state === shape && cells[1].state === shape && cells[2].state === shape) ||
@@ -43,40 +70,35 @@ const Game = (() => {
       (cells[3].state === shape && cells[4].state === shape && cells[5].state === shape) ||
       (cells[6].state === shape && cells[7].state === shape && cells[8].state === shape) ||
       (cells[2].state === shape && cells[4].state === shape && cells[6].state === shape)) {
-      gameOver(cell);
-      return;
+      Display.gameOver(shape);
+      changeScore(shape)
+      // Board.reset()
+    } else if (cells.every(cell => cell.state != '')) {
+      Display.gameOver(null);
+      changeScore(null);
     }
-    else count++;
-    if (count === 9) gameOver(null);
+    return;
   };
 
-  return { getMove, lookForLine }
-})();
-
-const Player = (() => {
-
+  return { getMove, lookForLine, scores }
 })();
 
 const Board = (() => {
 
-  applyMove = cell => cell.element.textContent = cell.state = Game.getMove();
+  function applyMove (cell) {
+    if (cell.state) { return false; }
+    cell.element.textContent = cell.state = Game.getMove()
+  };
 
-  checkStatus = cell => cell.state ? false : applyMove(cell);
 
-  getCellDiv = cellObj => {
-    const div = document.createElement('div');
-    document.getElementById('game-board').append(div);
-    div.classList.add('cell', 'text-center');
-    return div;
-  }
-
-  fillCells = ary => {
+  function fillCells(ary) {
     for (let i = 0; i < 9; i++) {
-      let cell = { state: '', element: getCellDiv() };
+      let cell = { state: '', element: Display.getCellDiv() };
       cell.element.addEventListener('click', e => {
-        console.log(checkStatus(cell))
-        checkStatus(cell);
+        applyMove(cell);
+        console.log(cell)
         Game.lookForLine(cells, cell);
+
       });
       ary.push(cell);
     };
@@ -85,5 +107,9 @@ const Board = (() => {
 
   const cells = fillCells([]);
 
-  return { cells }
+  function reset() {
+    cells.forEach(cell => cell.element.textContent = cell.state = '')
+  }
+
+  return { cells, reset }
 })();
