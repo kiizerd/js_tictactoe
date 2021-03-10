@@ -20,11 +20,10 @@ const Display = (() => {
   function getModal() {
     const modal = document.getElementById('game-over-modal');
     modal.style.display = 'block'
-    
-    const closeBtn = document.getElementById('close-modal-btn');
-    closeBtn.onclick = () => modal.style.display = 'none';
 
     window.onclick = e => { if (e.target==modal) modal.style.display ='none' };
+    
+    setTimeout(function name() { modal.style.display = 'none' }, 4750);
     
     return modal;
   };
@@ -33,7 +32,7 @@ const Display = (() => {
     const modal = getModal();
     const body = document.getElementById('modal-body')
 
-    body.textContent = !shape ? 'No Winner' : (shape + ' wins!!');
+    body.textContent = !shape ? 'No Winner' : (shape + ' WINS!!');
     
     return;
   };
@@ -71,11 +70,12 @@ const Game = (() => {
       (cells[6].state === shape && cells[7].state === shape && cells[8].state === shape) ||
       (cells[2].state === shape && cells[4].state === shape && cells[6].state === shape)) {
       Display.gameOver(shape);
-      changeScore(shape)
-      // Board.reset()
+      changeScore(shape);
+      Board.reset();
     } else if (cells.every(cell => cell.state != '')) {
       Display.gameOver(null);
       changeScore(null);
+      Board.reset()
     }
     return;
   };
@@ -94,11 +94,9 @@ const Board = (() => {
   function fillCells(ary) {
     for (let i = 0; i < 9; i++) {
       let cell = { state: '', element: Display.getCellDiv() };
-      cell.element.addEventListener('click', e => {
+      cell.element.addEventListener('click', () => {
         applyMove(cell);
-        console.log(cell)
         Game.lookForLine(cells, cell);
-
       });
       ary.push(cell);
     };

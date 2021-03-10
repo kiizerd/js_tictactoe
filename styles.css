@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-color: rgb(82, 99, 116);
+    background-color: #526374;
 }
 
 #header {
@@ -25,7 +25,7 @@ body {
     padding: 1vw;
     max-width: 800px;
     border-radius: 1em;
-    background-color: rgb(100, 126, 148);
+    background-color: #527474;
     box-shadow:         0 0 5px 6px rgba(0, 0, 0, 0.2);
     -moz-box-shadow:    0 0 5px 6px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 0 5px 6px rgba(0, 0, 0, 0.2);
@@ -40,10 +40,14 @@ body {
 #stats-list li {
     margin: 0 1rem 0 1rem;
     font-style: italic;
+    background-color: #c8c8c8;
+    padding: .2em 1em;
+    border-radius: 8px;
+    border: .2rem inset #507070;
 }
 
 p {
-    margin: 7px 2px 0 1px;
+    margin: 7px 1px 0 1px;
     font-weight: 600;
     font-size: large;
 }
@@ -63,7 +67,7 @@ p {
     min-width: 360px;
     min-height: 360px;
     border-radius: 9px;
-    background-color: rgba(104, 118, 130, 0.733);
+    background-color: #527474;
     box-shadow:         0 0 5px 7px rgba(0, 0, 0, 0.2);
     -moz-box-shadow:    0 0 5px 7px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 0 5px 7px rgba(0, 0, 0, 0.2);
@@ -74,12 +78,13 @@ p {
     height: 98px;
     margin: 10px;
     padding: 5px;
+    color: #343a40;
     cursor: pointer;
     font-size: 3.5em;
-    font-weight: 200;
-    border-radius: 5px;
+    font-weight: 100;
+    border-radius: 15px;
     border: 0px solid #383838;
-    background-color: #b5b5b5;
+    background-color: #c8c8c8;
     transition: font-size    0.24s linear, border-width 0.24s linear;
 }
 
@@ -90,4 +95,24 @@ p {
 
 .btn-dark {
     margin: 5px 10px 0 0;
+    padding: .21em 2em .2em 2em;
+}
+
+.modal { 
+    background-color: #38383894;
+}
+
+.modal-content { 
+    background-color: #ddd;
+    border: 6px solid rgb(220, 87, 87);
+    padding: 1em 1em 1em 1em;
+    font-style: italic;
+    margin: 40% auto;
+    font-weight: 500;
+    font-size: 3.5em;
+}
+
+.close {
+    position: relative;
+    
 }
